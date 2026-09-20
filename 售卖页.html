@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>御膳房 - 菜品售卖</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="inner-page">
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <i class="fas fa-utensils"></i>
+                <span>御膳房</span>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="登录页.html" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>首页</span>
+                </a></li>
+                <li><a href="售卖页.html" class="menu-link active">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>点餐</span>
+                </a></li>
+                <li><a href="管理员页.html" class="menu-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span>管理后台</span>
+                </a></li>
+                <li class="menu-dropdown">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>UML图</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="1.餐饮管理系统_UML用例图.html" target="_blank" class="dropdown-item">
+                            <i class="fas fa-user-friends"></i>
+                            <span>用例图</span>
+                        </a></li>
+                        <li><a href="2.餐饮管理系统_UML类图.html" target="_blank" class="dropdown-item">
+                            <i class="fas fa-sitemap"></i>
+                            <span>类图</span>
+                        </a></li>
+                        <li><a href="3.餐饮管理系统_UML活动图1.html" target="_blank" class="dropdown-item">
+                            <i class="fas fa-tasks"></i>
+                            <span>活动图1</span>
+                        </a></li>
+                        <li><a href="3.餐饮管理系统_UML活动图2.html" target="_blank" class="dropdown-item">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>活动图2</span>
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-user" id="navbarUser">
+                <i class="fas fa-user-circle"></i>
+                <span id="userName">顾客</span>
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> 退出
+                </button>
+            </div>
+            <button class="navbar-toggle" id="navbarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <div class="main-content sell-page">
+        <!-- 页面标题 -->
+        <div class="page-header">
+            <h1><i class="fas fa-utensils"></i> 御膳房 · 菜品售卖</h1>
+            <p>御膳私藏，不止于味 — 穿越千年的宫廷风味</p>
+        </div>
+
+        <!-- 三步点餐流程指示器 -->
+        <div class="step-indicator">
+            <div class="step active" data-step="1">
+                <div class="step-circle"><i class="fas fa-clipboard-list"></i></div>
+                <span>选择点餐类型</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="2">
+                <div class="step-circle"><i class="fas fa-utensils"></i></div>
+                <span>浏览选择菜品</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="3">
+                <div class="step-circle"><i class="fas fa-credit-card"></i></div>
+                <span>支付结算</span>
+            </div>
+        </div>
+
+        <!-- 第一步：选择点餐类型 -->
+        <div class="order-step-content" id="step1Content">
+            <h2 class="section-title">请选择点餐类型</h2>
+            <div class="order-type-selector">
+                <div class="order-type-card active" data-type="dinein">
+                    <i class="fas fa-store"></i>
+                    <h3>堂食</h3>
+                    <p>在店内用餐，选择桌台号</p>
+                </div>
+                <div class="order-type-card" data-type="takeout">
+                    <i class="fas fa-motorcycle"></i>
+                    <h3>外卖</h3>
+                    <p>送餐上门，填写配送信息</p>
+                </div>
+                <div class="order-type-card" data-type="pickup">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>自提</h3>
+                    <p>到店自取，节省等待时间</p>
+                </div>
+            </div>
+
+            <!-- 堂食 - 选择桌台号 -->
+            <div class="order-detail" id="dineinDetail">
+                <h3><i class="fas fa-chair"></i> 请选择桌台号</h3>
+                <div class="table-grid">
+                    <div class="table-item" data-table="A01">A01 <span>4人桌</span></div>
+                    <div class="table-item" data-table="A02">A02 <span>4人桌</span></div>
+                    <div class="table-item" data-table="A03">A03 <span>4人桌</span></div>
+                    <div class="table-item" data-table="A04">A04 <span>4人桌</span></div>
+                    <div class="table-item" data-table="B01">B01 <span>6人桌</span></div>
+                    <div class="table-item" data-table="B02">B02 <span>6人桌</span></div>
+                </div>
+            </div>
+
+            <!-- 外卖/自提 - 填写配送信息 -->
+            <div class="order-detail hidden" id="deliveryDetail">
+                <h3><i class="fas fa-truck"></i> 配送信息</h3>
+                <div class="delivery-form">
+                    <div class="form-group">
+                        <label for="deliveryAddress"><i class="fas fa-map-marker-alt"></i> 配送地址</label>
+                        <input type="text" id="deliveryAddress" placeholder="请输入详细配送地址" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone"><i class="fas fa-phone"></i> 联系电话</label>
+                        <input type="tel" id="contactPhone" placeholder="请输入联系电话（11位手机号）" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryMethod"><i class="fas fa-shipping-fast"></i> 配送方式</label>
+                        <select id="deliveryMethod" class="form-input">
+                            <option value="standard">标准配送（30-45分钟）</option>
+                            <option value="express">快速配送（20分钟内）</option>
+                            <option value="pickup">到店自取</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderNote"><i class="fas fa-sticky-note"></i> 订单备注</label>
+                        <textarea id="orderNote" placeholder="特殊要求（如：少辣、不要香菜等）" class="form-input"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-actions">
+                <button class="btn btn-primary" id="toStep2">
+                    下一步 <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 第二步：浏览选择菜品 -->
+        <div class="order-step-content hidden" id="step2Content">
+            <div class="menu-section">
+                <!-- 搜索栏 -->
+                <div class="menu-toolbar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="dishSearch" placeholder="搜索菜品名称或描述...">
+                    </div>
+                    <div class="category-tabs">
+                        <button class="category-tab active" data-category="all">全部</button>
+                        <button class="category-tab" data-category="recommended">推荐菜品</button>
+                        <button class="category-tab" data-category="staple">主食</button>
+                        <button class="category-tab" data-category="drink">饮料</button>
+                        <button class="category-tab" data-category="dessert">甜点</button>
+                    </div>
+                </div>
+
+                <!-- 菜品网格 -->
+                <div class="dish-grid" id="dishGrid">
+                    <!-- 菜品卡片由JS动态生成 -->
+                </div>
+            </div>
+
+            <!-- 购物车侧边栏 -->
+            <div class="cart-sidebar" id="cartSidebar">
+                <div class="cart-header">
+                    <h3><i class="fas fa-shopping-cart"></i> 购物车</h3>
+                    <button class="btn-clear-cart" id="clearCartBtn">
+                        <i class="fas fa-trash"></i> 清空
+                    </button>
+                </div>
+                <div class="cart-items" id="cartItems">
+                    <div class="cart-empty">
+                        <i class="fas fa-shopping-basket"></i>
+                        <p>购物车空空如也</p>
+                        <span>快去挑选心仪的菜品吧</span>
+                    </div>
+                </div>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <span>合计：</span>
+                        <span class="total-price" id="cartTotal">￥0.00</span>
+                    </div>
+                    <button class="btn btn-primary btn-checkout" id="checkoutBtn">
+                        <i class="fas fa-credit-card"></i> 去结算
+                    </button>
+                </div>
+            </div>
+
+            <div class="step-actions">
+                <button class="btn btn-secondary" id="backToStep1">
+                    <i class="fas fa-arrow-left"></i> 上一步
+                </button>
+            </div>
+        </div>
+
+        <!-- 第三步：支付结算 -->
+        <div class="order-step-content hidden" id="step3Content">
+            <div class="checkout-section">
+                <!-- 订单详情 -->
+                <div class="checkout-card">
+                    <h3 class="checkout-title"><i class="fas fa-receipt"></i> 订单详情</h3>
+                    <div class="order-info-bar" id="orderInfoBar">
+                        <!-- 由JS填充 -->
+                    </div>
+                    <div class="checkout-items" id="checkoutItems">
+                        <!-- 由JS填充 -->
+                    </div>
+                    <div class="checkout-summary">
+                        <div class="summary-row">
+                            <span>菜品数量：</span>
+                            <span id="checkoutCount">0 件</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>配送费：</span>
+                            <span>￥0.00</span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span>应付总额：</span>
+                            <span class="summary-price" id="checkoutTotal">￥0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 支付方式选择 -->
+                <div class="checkout-card">
+                    <h3 class="checkout-title"><i class="fas fa-wallet"></i> 选择支付方式</h3>
+                    <div class="payment-methods">
+                        <div class="payment-option active" data-method="alipay">
+                            <i class="fab fa-alipay"></i>
+                            <div>
+                                <h4>支付宝支付</h4>
+                                <p>推荐使用，安全便捷</p>
+                            </div>
+                        </div>
+                        <div class="payment-option" data-method="wechat">
+                            <i class="fab fa-weixin"></i>
+                            <div>
+                                <h4>微信支付</h4>
+                                <p>微信快捷支付</p>
+                            </div>
+                        </div>
+                        <div class="payment-option" data-method="bankcard">
+                            <i class="fas fa-credit-card"></i>
+                            <div>
+                                <h4>银行卡支付</h4>
+                                <p>支持各大银行储蓄卡/信用卡</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 支付按钮 -->
+                <div class="checkout-actions">
+                    <button class="btn btn-secondary" id="backToStep2">
+                        <i class="fas fa-arrow-left"></i> 返回修改
+                    </button>
+                    <button class="btn btn-primary" id="payBtn">
+                        <i class="fas fa-check-circle"></i> 确认支付 <span id="payAmount">￥0.00</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 支付成功页面 -->
+        <div class="order-step-content hidden" id="paymentSuccess">
+            <div class="payment-success-card">
+                <div class="success-icon-large">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>支付成功！</h2>
+                <p>您的订单已提交，后厨正在准备中...</p>
+                <div class="order-number">
+                    <span>订单编号：</span>
+                    <strong id="orderNumber"></strong>
+                </div>
+                <div class="payment-summary" id="paymentSummary">
+                    <!-- 由JS填充 -->
+                </div>
+                <div class="success-actions">
+                    <button class="btn btn-primary" id="continueShopping">
+                        <i class="fas fa-utensils"></i> 继续点餐
+                    </button>
+                    <button class="btn btn-outline" id="viewOrders">
+                        <i class="fas fa-list"></i> 查看订单
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 订单历史记录弹窗 -->
+        <div class="modal" id="orderHistoryModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-history"></i> 历史订单</h3>
+                    <button class="modal-close" id="closeOrderHistory">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="orderHistoryList">
+                    <!-- 由JS填充 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 通知提示 -->
+    <div class="notification" id="notification"></div>
+
+    <!-- 加载层 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p id="loadingText">正在处理...</p>
+        </div>
+    </div>
+
+    <script src="售卖页.js"></script>
+</body>
+</html>

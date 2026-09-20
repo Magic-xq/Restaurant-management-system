@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>御膳房 - 登录</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<!-- 导航栏 -->
+	<nav class="navbar">
+	    <div class="navbar-container">
+	        <div class="navbar-logo">
+	            <i class="fas fa-utensils"></i>
+	            <span>御膳房</span>
+	        </div>
+	        <ul class="navbar-menu">
+	            <li><a href="#" class="menu-link active">
+	                <i class="fas fa-home"></i>
+	                <span>首页</span>
+	            </a></li>
+	            <li class="menu-dropdown">
+	                <a href="#" class="menu-link">
+	                    <i class="fas fa-project-diagram"></i>
+	                    <span>UML图</span>
+	                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+	                </a>
+	                <ul class="dropdown-menu">
+	                    <li><a href="1.餐饮管理系统_UML用例图.html" target="_blank" class="dropdown-item">
+	                        <i class="fas fa-user-friends"></i>
+	                        <span>用例图</span>
+	                    </a></li>
+	                    <li><a href="2.餐饮管理系统_UML类图.html" target="_blank" class="dropdown-item">
+	                        <i class="fas fa-sitemap"></i>
+	                        <span>类图</span>
+	                    </a></li>
+	                    <li><a href="3.餐饮管理系统_UML活动图1.html" target="_blank" class="dropdown-item">
+	                        <i class="fas fa-tasks"></i>
+	                        <span>活动图1</span>
+	                    </a></li>
+	                    <li><a href="3.餐饮管理系统_UML活动图2.html" target="_blank" class="dropdown-item">
+	                        <i class="fas fa-exchange-alt"></i>
+	                        <span>活动图2</span>
+	                    </a></li>
+	                </ul>
+	            </li>
+	        </ul>
+	        <button class="navbar-toggle" id="navbarToggle">
+	            <i class="fas fa-bars"></i>
+	        </button>
+	    </div>
+	</nav>
+	
+	<div class="container">
+		<div class="left-panel">
+			<div class="logo">
+				<i class="fas fa-utensils"></i>
+				<h1>御膳房</h1>
+				<div class="version">V2.0</div>
+			</div>
+			<div class="welcome-message">
+				<h2>御膳私藏，不止于味</h2>
+				<p>穿越千年的宫廷风味，以现代匠心呈现，邀您入席，品鉴舌尖上的「皇家礼遇」</p>
+			</div>
+			<div class="illustration">
+				<div class="food-item">
+					<i class="fas fa-hamburger"></i>
+					<span>主食</span>
+				</div>
+				<div class="food-item">
+					<i class="fas fa-pizza-slice"></i>
+					<span>菜品</span>
+				</div>
+				<div class="food-item">
+					<i class="fas fa-coffee"></i>
+					<span>饮料</span>
+				</div>
+				<div class="food-item">
+					<i class="fas fa-ice-cream"></i>
+					<span>甜点</span>
+				</div>
+			</div>
+			<div class="stats">
+				<div class="stat-item">
+					<i class="fas fa-users"></i>
+					<div>
+						<div class="stat-number">1,250+</div>
+						<div class="stat-label">注册商家</div>
+					</div>
+				</div>
+				<div class="stat-item">
+					<i class="fas fa-shopping-cart"></i>
+					<div>
+						<div class="stat-number">15,800+</div>
+						<div class="stat-label">日均订单</div>
+					</div>
+				</div>
+			</div>
+			<div class="quote">
+				<p>"连接美食与生活，让餐饮管理更简单"</p>
+				<p class="author">- 第十六组</p>
+			</div>
+		</div>
+		
+		<div class="right-panel">
+			<div class="form-container" id="loginForm">
+				<div class="form-header">
+					<h2>御前入席</h2>
+					<p class="subtitle">恭迎尊驾，今日以何身份赴此宫宴？</p>
+				</div>
+				
+				<div class="form-group">
+					<label for="userType">恭请呈上您的身份帖</label>
+					<div class="user-type-selector">
+						<div class="user-type-option active" data-value="customer">
+							<i class="fas fa-user"></i>
+							<span>顾客</span>
+						</div>
+						<div class="user-type-option" data-value="merchant">
+							<i class="fas fa-store"></i>
+							<span>商家</span>
+						</div>
+						<div class="user-type-option" data-value="manager">
+							<i class="fas fa-user-tie"></i>
+							<span>管理者</span>
+						</div>
+					</div>
+					<input type="hidden" id="userType" value="customer">
+				</div>
+				
+				<div class="form-group">
+					<label for="email">邮箱地址</label>
+					<div class="input-with-icon">
+						<i class="fas fa-envelope"></i>
+						<input type="email" id="email" placeholder="请输入您的邮箱" required>
+						<span class="input-hint">格式：example@domain.com</span>
+					</div>
+					<div class="error-message" id="emailError"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="password">密码</label>
+					<div class="input-with-icon">
+						<i class="fas fa-lock"></i>
+						<input type="password" id="password" placeholder="请输入密码" required>
+						<i class="fas fa-eye toggle-password" id="togglePassword"></i>
+						<span class="input-hint">需包含英文和数字</span>
+					</div>
+					<div class="error-message" id="passwordError"></div>
+				</div>
+
+				<div class="form-group remember-forgot">
+					<div class="remember-me">
+						<input type="checkbox" id="rememberMe">
+						<label for="rememberMe">记住我</label>
+					</div>
+					<a href="#" id="forgotPassword">忘记密码？</a>
+				</div>
+				
+				<div class="button-group">
+					<button type="button" id="loginBtn" class="btn btn-primary">
+						<i class="fas fa-sign-in-alt"></i> 登录系统
+					</button>
+					<button type="button" id="resetBtn" class="btn btn-secondary">
+						<i class="fas fa-redo"></i> 重置
+					</button>
+				</div>
+				
+				<div class="divider">
+					<span>还没有账户？</span>
+				</div>
+				
+				<div class="action-buttons">
+					<button type="button" id="switchToRegister" class="btn btn-outline">
+						<i class="fas fa-user-plus"></i> 立即注册
+					</button>
+					<button type="button" id="guestLogin" class="btn btn-ghost">
+						<i class="fas fa-user-clock"></i> 游客体验
+					</button>
+				</div>
+				
+				<div class="quick-login">
+					<p>快速登录</p>
+					<div class="social-login">
+						<button class="social-btn wechat">
+							<i class="fab fa-weixin"></i>
+						</button>
+						<button class="social-btn alipay">
+							<i class="fab fa-alipay"></i>
+						</button>
+						<button class="social-btn phone">
+							<i class="fas fa-mobile-alt"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-container hidden" id="registerForm">
+				<div class="form-header">
+					<h2>用户注册</h2>
+					<p class="subtitle">创建您的账户</p>
+				</div>
+				
+				<div class="form-group">
+					<label for="regUserType">注册身份</label>
+					<div class="user-type-selector">
+						<div class="user-type-option active" data-value="customer">
+							<i class="fas fa-user"></i>
+							<span>顾客</span>
+							<div class="user-type-tip">浏览和点餐</div>
+						</div>
+						<div class="user-type-option" data-value="merchant">
+							<i class="fas fa-store"></i>
+							<span>商家</span>
+							<div class="user-type-tip">管理和销售</div>
+						</div>
+						<div class="user-type-option" data-value="manager">
+							<i class="fas fa-user-tie"></i>
+							<span>管理者</span>
+							<div class="user-type-tip">监督和分析</div>
+						</div>
+					</div>
+					<input type="hidden" id="regUserType" value="customer">
+				</div>
+				
+				<div class="form-group">
+					<label for="regEmail">邮箱地址</label>
+					<div class="input-with-icon">
+						<i class="fas fa-envelope"></i>
+						<input type="email" id="regEmail" placeholder="请输入您的邮箱" required>
+					</div>
+					<div class="error-message" id="regEmailError"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="regUsername">用户名</label>
+					<div class="input-with-icon">
+						<i class="fas fa-user"></i>
+						<input type="text" id="regUsername" placeholder="请输入用户名" required>
+					</div>
+					<div class="error-message" id="regUsernameError"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="regPhone">联系电话</label>
+					<div class="input-with-icon">
+						<i class="fas fa-phone"></i>
+						<input type="tel" id="regPhone" placeholder="请输入联系电话" required>
+					</div>
+					<div class="error-message" id="regPhoneError"></div>
+				</div>
+				
+				<div class="form-group" id="restaurantField">
+					<label for="regRestaurant">餐厅名称</label>
+					<div class="input-with-icon">
+						<i class="fas fa-store"></i>
+						<input type="text" id="regRestaurant" placeholder="请输入您的餐厅名称">
+					</div>
+					<div class="error-message" id="regRestaurantError"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="regPassword">密码</label>
+					<div class="password-strength">
+						<div class="input-with-icon">
+							<i class="fas fa-lock"></i>
+							<input type="password" id="regPassword" placeholder="请输入密码（需包含英文和数字）" required>
+							<i class="fas fa-eye toggle-password" id="toggleRegPassword"></i>
+						</div>
+						<div class="strength-meter">
+							<div class="strength-bar"></div>
+							<div class="strength-bar"></div>
+							<div class="strength-bar"></div>
+							<div class="strength-bar"></div>
+						</div>
+						<div class="strength-text">密码强度：<span id="strengthText">弱</span></div>
+					</div>
+					<div class="error-message" id="regPasswordError"></div>
+				</div>
+				
+				<div class="form-group">
+					<label for="regConfirmPassword">确认密码</label>
+					<div class="input-with-icon">
+						<i class="fas fa-lock"></i>
+						<input type="password" id="regConfirmPassword" placeholder="请再次输入密码" required>
+						<i class="fas fa-eye toggle-password" id="toggleRegConfirmPassword"></i>
+					</div>
+					<div class="error-message" id="regConfirmPasswordError"></div>
+				</div>
+				
+				<div class="form-group terms">
+					<input type="checkbox" id="agreeTerms" required>
+					<label for="agreeTerms">我已阅读并同意<a href="#">服务条款</a>和<a href="#">隐私政策</a></label>
+					<div class="error-message" id="termsError"></div>
+				</div>
+				
+				<div class="form-group newsletter">
+					<input type="checkbox" id="subscribeNews" checked>
+					<label for="subscribeNews">订阅餐饮行业资讯和优惠信息</label>
+				</div>
+				
+				<div class="button-group">
+					<button type="button" id="registerBtn" class="btn btn-primary">
+						<i class="fas fa-user-plus"></i> 注册账户
+					</button>
+					<button type="button" id="resetRegisterBtn" class="btn btn-secondary">
+						<i class="fas fa-redo"></i> 重置
+					</button>
+				</div>
+				
+				<div class="divider">
+					<span>已有账户？</span>
+				</div>
+				
+				<button type="button" id="switchToLogin" class="btn btn-outline">
+					<i class="fas fa-sign-in-alt"></i> 返回登录
+				</button>
+			</div>
+			
+			<div class="system-info">
+				<p><i class="fas fa-shield-alt"></i> 系统采用SSL加密，保护您的信息安全</p>
+				<p><i class="fas fa-clock"></i> 客服时间：09:00-21:00</p>
+			</div>
+		</div>
+	</div>
+	
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    <div class="notification" id="notification"></div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>正在登录...</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>御膳房 - 管理后台</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="inner-page">
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <i class="fas fa-utensils"></i>
+                <span>御膳房</span>
+            </div>
+            <ul class="navbar-menu">
+                <li><a href="登录页.html" class="menu-link">
+                    <i class="fas fa-home"></i>
+                    <span>首页</span>
+                </a></li>
+                <li><a href="售卖页.html" class="menu-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>点餐</span>
+                </a></li>
+                <li><a href="管理员页.html" class="menu-link active">
+                    <i class="fas fa-user-tie"></i>
+                    <span>管理后台</span>
+                </a></li>
+                <li class="menu-dropdown">
+                    <a href="#" class="menu-link">
+                        <i class="fas fa-project-diagram"></i>
+                        <span>UML图</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="1.餐饮管理系统_UML用例图.html" target="_blank" class="dropdown-item">
+                            <i class="fas fa-user-friends"></i>
+                            <span>用例图</span>
+                        </a></li>
+                        <li><a href="2.餐饮管理系统_UML类图.html" target="_blank" class="dropdown-item">
+                            <i class="fas fa-sitemap"></i>
+                            <span>类图</span>
+                        </a></li>
+                        <li><a href="3.餐饮管理系统_UML活动图1.html" target="_blank" class="dropdown-item">
+                            <i class="fas fa-tasks"></i>
+                            <span>活动图1</span>
+                        </a></li>
+                        <li><a href="3.餐饮管理系统_UML活动图2.html" target="_blank" class="dropdown-item">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>活动图2</span>
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="navbar-user" id="navbarUser">
+                <i class="fas fa-user-circle"></i>
+                <span id="userName">管理员</span>
+                <button class="btn-logout" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> 退出
+                </button>
+            </div>
+            <button class="navbar-toggle" id="navbarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <div class="main-content admin-page">
+        <!-- 无权限提示 -->
+        <div class="no-permission" id="noPermission" style="display:none;">
+            <div class="no-permission-card">
+                <i class="fas fa-lock"></i>
+                <h2>无访问权限</h2>
+                <p>抱歉，管理后台仅限商家和管理者访问。</p>
+                <p>当前身份：<strong id="currentUserType">未登录</strong></p>
+                <button class="btn btn-primary" onclick="window.location.href='登录页.html'">
+                    <i class="fas fa-sign-in-alt"></i> 返回登录
+                </button>
+            </div>
+        </div>
+
+        <!-- 管理内容（需权限验证通过后显示） -->
+        <div id="adminContent" style="display:none;">
+        <!-- 页面标题 -->
+        <div class="page-header">
+            <h1><i class="fas fa-chart-line"></i> 餐饮管理系统 · 管理后台</h1>
+            <p>御膳房餐饮管理系统 V2.0 | 数据统计 · 用户管理 · 菜品管理</p>
+        </div>
+
+        <!-- 标签页导航 -->
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="dashboard">
+                <i class="fas fa-tachometer-alt"></i> 数据看板
+            </button>
+            <button class="admin-tab" data-tab="users">
+                <i class="fas fa-users"></i> 用户管理
+            </button>
+            <button class="admin-tab" data-tab="dishes">
+                <i class="fas fa-utensils"></i> 菜品管理
+            </button>
+            <button class="admin-tab" data-tab="orders">
+                <i class="fas fa-clipboard-list"></i> 订单管理
+            </button>
+        </div>
+
+        <!-- 数据看板 -->
+        <div class="admin-tab-content active" id="tab-dashboard">
+            <div class="stats-grid">
+                <div class="stat-card stat-orange">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statUsers">0</div>
+                        <div class="stat-label">注册用户</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-green">
+                    <div class="stat-icon"><i class="fas fa-utensils"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statDishes">0</div>
+                        <div class="stat-label">菜品总数</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-blue">
+                    <div class="stat-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statOrders">0</div>
+                        <div class="stat-label">订单总数</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-purple">
+                    <div class="stat-icon"><i class="fas fa-yen-sign"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statRevenue">￥0</div>
+                        <div class="stat-label">总营收</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card stat-teal">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statTodayOrders">0</div>
+                        <div class="stat-label">今日订单</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-amber">
+                    <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statPendingOrders">0</div>
+                        <div class="stat-label">待处理订单</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-indigo">
+                    <div class="stat-icon"><i class="fas fa-check-double"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statCompletedOrders">0</div>
+                        <div class="stat-label">已完成订单</div>
+                    </div>
+                </div>
+                <div class="stat-card stat-pink">
+                    <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="statTodayRevenue">￥0</div>
+                        <div class="stat-label">今日营收</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 菜品分类统计 -->
+            <div class="admin-section">
+                <h2 class="section-title"><i class="fas fa-chart-pie"></i> 菜品分类统计</h2>
+                <div class="category-stats" id="categoryStats">
+                    <!-- 由JS填充 -->
+                </div>
+            </div>
+
+            <!-- 最近订单 -->
+            <div class="admin-section">
+                <h2 class="section-title"><i class="fas fa-history"></i> 最近订单</h2>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>订单编号</th>
+                                <th>下单时间</th>
+                                <th>点餐类型</th>
+                                <th>菜品数量</th>
+                                <th>金额</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentOrdersBody">
+                            <!-- 由JS填充 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 用户管理 -->
+        <div class="admin-tab-content" id="tab-users">
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fas fa-user-cog"></i> 用户管理</h2>
+                    <button class="btn btn-primary" id="addUserBtn">
+                        <i class="fas fa-user-plus"></i> 添加用户
+                    </button>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>邮箱</th>
+                                <th>用户名</th>
+                                <th>电话</th>
+                                <th>餐厅</th>
+                                <th>类型</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- 由JS填充 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 菜品管理 -->
+        <div class="admin-tab-content" id="tab-dishes">
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fas fa-pepper-hot"></i> 菜品管理</h2>
+                    <button class="btn btn-primary" id="addDishBtn">
+                        <i class="fas fa-plus"></i> 添加菜品
+                    </button>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>名称</th>
+                                <th>分类</th>
+                                <th>价格</th>
+                                <th>描述</th>
+                                <th>库存</th>
+                                <th>推荐</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dishesTableBody">
+                            <!-- 由JS填充 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 订单管理 -->
+        <div class="admin-tab-content" id="tab-orders">
+            <div class="admin-section">
+                <h2 class="section-title"><i class="fas fa-clipboard-list"></i> 订单管理</h2>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>订单编号</th>
+                                <th>下单时间</th>
+                                <th>点餐类型</th>
+                                <th>桌台/地址</th>
+                                <th>菜品数量</th>
+                                <th>金额</th>
+                                <th>支付方式</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- 由JS填充 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div><!-- /adminContent -->
+    </div>
+
+    <!-- 用户编辑模态框 -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="userModalTitle"><i class="fas fa-user"></i> 添加用户</h3>
+                <button class="modal-close" id="closeUserModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editUserId">
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> 邮箱</label>
+                    <input type="email" id="editUserEmail" class="form-input" placeholder="example@domain.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> 用户名</label>
+                    <input type="text" id="editUsername" class="form-input" placeholder="请输入用户名">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> 联系电话</label>
+                    <input type="tel" id="editUserPhone" class="form-input" placeholder="11位手机号">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-store"></i> 餐厅名称</label>
+                    <input type="text" id="editUserRestaurant" class="form-input" placeholder="餐厅名称（顾客可留空）">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> 密码</label>
+                    <input type="text" id="editUserPassword" class="form-input" placeholder="密码（英文+数字）">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-user-tag"></i> 用户类型</label>
+                    <select id="editUserType" class="form-input">
+                        <option value="customer">顾客</option>
+                        <option value="merchant">商家</option>
+                        <option value="manager">管理者</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelUserBtn">取消</button>
+                <button class="btn btn-primary" id="saveUserBtn"><i class="fas fa-save"></i> 保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 菜品编辑模态框 -->
+    <div class="modal" id="dishModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="dishModalTitle"><i class="fas fa-utensils"></i> 添加菜品</h3>
+                <button class="modal-close" id="closeDishModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editDishId">
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> 菜品名称</label>
+                    <input type="text" id="editDishName" class="form-input" placeholder="请输入菜品名称">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-folder"></i> 分类</label>
+                    <select id="editDishCategory" class="form-input">
+                        <option value="recommended">推荐菜品</option>
+                        <option value="staple">主食</option>
+                        <option value="drink">饮料</option>
+                        <option value="dessert">甜点</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-yen-sign"></i> 价格</label>
+                    <input type="number" id="editDishPrice" class="form-input" placeholder="0.00" step="0.01" min="0">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-align-left"></i> 描述</label>
+                    <textarea id="editDishDesc" class="form-input" placeholder="请输入菜品描述" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-box"></i> 库存</label>
+                    <input type="number" id="editDishStock" class="form-input" placeholder="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="editDishRecommended">
+                        <span>设为推荐菜品</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelDishBtn">取消</button>
+                <button class="btn btn-primary" id="saveDishBtn"><i class="fas fa-save"></i> 保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 通知提示 -->
+    <div class="notification" id="notification"></div>
+
+    <!-- 加载层 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>正在处理...</p>
+        </div>
+    </div>
+
+    <script src="管理员页.js"></script>
+</body>
+</html>
